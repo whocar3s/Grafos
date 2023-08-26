@@ -33,6 +33,14 @@ var options = {
   },
 };
 
+const showError = msj => {
+  Swal.fire({
+    icon: "error",
+    text: msj,
+    title: "Error",
+  });
+}
+
 var graph = new vis.Network(Content, data, options);
 
 function Clear() {
@@ -43,24 +51,9 @@ function Clear() {
 }
 
 function addNode() {
-  if (graph.clustering.findNode(Nodo.value) == Nodo.value && Nodo.value != "") {
-    Swal.fire({
-      icon: "warning",
-      text: "Ese nodo ya existe.",
-      title: "Alert",
-    });
+  if (graph.clustering.findNode(Nodo.value) == Nodo.value && Nodo.value != "") return showError("Ese nodo ya existe.");    
 
-    return false;
-  }
-
-  if (Nodo.value == "") {
-    Swal.fire({
-      icon: "warning",
-      text: "Debe llenar el espacio de nodo.",
-      title: "Alert",
-    });
-    return false;
-  }
+  if (Nodo.value == "") return showError("Debe llenar el espacio de nodo.");
 
   nodes.add({
     id: Nodo.value,
@@ -70,14 +63,8 @@ function addNode() {
 
 function addEdge() {
   console.log(From.value + To.value);
-  if (From.value == "" || To.value == "") {
-    Swal.fire({
-      icon: "warning",
-      text: "Debe llenar al menos un espacio.",
-      title: "Alert",
-    });
-    return false;
-  }
+  if (From.value == "" || To.value == "") return showError("Por favor rellene los campos necesarios.");
+
   console.log(arrow.value);
 
   edges.add({
@@ -90,25 +77,11 @@ function addEdge() {
 }
 
 function Delete() {
-  if (Nodo.value == "") {
-    Swal.fire({
-      icon: "warning",
-      text: "Debe llenar el espacio del nodo.",
-      title: "Alert",
-    });
-    return false;
-  }
+  if (Nodo.value == "") return showError("Por favor rellene los campos necesarios.");
   nodes.remove(Nodo.value);
 }
 
 function disconnect() {
-  if (From.value == "" && To.value == "") {
-    Swal.fire({
-      icon: "warning",
-      text: "Debe rellenar desde donde se desconecta.",
-      title: "Alerta",
-    });
-    return false;
-  }
+  if (From.value == "" && To.value == "") return showError("Debe rellenar desde donde se desconecta.")
   edges.remove({ id: From.value + To.value });
 }
