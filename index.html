@@ -8,10 +8,11 @@
     <link href="https://fonts.googleapis.com/css2?family=New+Tegomin&display=swap" rel="stylesheet"/>
     <!--Css-->
     <!-- <link rel="stylesheet" href="Library/bootstrap-4.4.1-dist/css/bootstrap.css"/> -->
-    <link rel="stylesheet" href="Library/Sweetalert/dist/sweetalert2.min.css" />
+    <!-- <link rel="stylesheet" href="Library/Sweetalert/dist/sweetalert2.min.css" />
 
     <!-- Library -->
     <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Icon -->
     <link rel="icon" type="image/png" href="favicon.png" />
@@ -28,15 +29,15 @@
 
       <div class="options-container">
         <div class="option">
-          <button onclick="addNode()">Agregar nodo</button>
+          <button class="btn" onclick="addNode()">Agregar nodo</button>
           <input autocomplete="off" type="text" placeholder="nodo" id="Node"/>
-          <button onclick="Delete()">Eliminar nodo</button>        
+          <button class="btn" onclick="Delete()">Eliminar nodo</button>        
         </div>
         <div class="option">
-          <button onclick="addEdge()"id="addEdge">Conectar</button>
+          <button class="btn" onclick="addEdge()"id="addEdge">Conectar</button>
           <input autocomplete="off" type="text" placeholder="Desde donde" id="From"/>
           <input autocomplete="off" type="text" placeholder="Hasta donde" id="To"/>
-          <button onclick="disconnect()"id="disconnect">Desconectar</button>
+          <button class="btn" onclick="disconnect()"id="disconnect">Desconectar</button>
           <!--<input autocomplete="off" type="text" placeholder="Peso(opcional)" id="Text"/>       
           <select id="Arrow">
             <option value="...">Flechas..</option>

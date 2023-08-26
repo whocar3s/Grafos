@@ -63,7 +63,7 @@ body {
 } 
 */
 
-button {
+.btn {
   color: white;
   background-color: rgb(244, 88, 71);
   border-radius: 10px;
