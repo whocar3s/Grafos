@@ -2,19 +2,10 @@
 <html lang="es">
   <head>
     <title>Graph Maker</title>
-
-    <!-- google font -->
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=New+Tegomin&display=swap" rel="stylesheet"/>
-    <!--Css-->
-    <!-- <link rel="stylesheet" href="Library/bootstrap-4.4.1-dist/css/bootstrap.css"/> -->
-    <!-- <link rel="stylesheet" href="Library/Sweetalert/dist/sweetalert2.min.css" />
-
-    <!-- Library -->
     <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <!-- Icon -->
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
@@ -27,48 +18,56 @@
         <div id="Red"></div>
       </div>
 
-      <div class="options-container">
-        <div class="option">
-          <button class="btn" onclick="addNode()">Agregar nodo</button>
-          <input autocomplete="off" type="text" placeholder="nodo" id="Node"/>
-          <button class="btn" onclick="Delete()">Eliminar nodo</button>        
+      
+      <div class="main-options-container">
+        <div class="options-container">
+        
+        
+          <div class="option">
+            <div class="option"><input autocomplete="off" type="text" placeholder="Nombre nodo" id="Node"/></div>
+            <div class="option"><button class="btn" class="option" onclick="addNode()">Agregar nodo</button></div>
+            <div class="option"><button class="btn" class="option" onclick="Delete()">Eliminar nodo</button> </div>
+          </div>
+          
+          
+          
         </div>
-        <div class="option">
-          <button class="btn" onclick="addEdge()"id="addEdge">Conectar</button>
-          <input autocomplete="off" type="text" placeholder="Desde donde" id="From"/>
-          <input autocomplete="off" type="text" placeholder="Hasta donde" id="To"/>
-          <button class="btn" onclick="disconnect()"id="disconnect">Desconectar</button>
-          <!--<input autocomplete="off" type="text" placeholder="Peso(opcional)" id="Text"/>       
-          <select id="Arrow">
-            <option value="...">Flechas..</option>
-            <option value="to">To</option>
-            <option value="middle">Middle</option>
-            <option value="from">From</option>
-            <option value="to;from">To From</option>
-          </select> --> 
-        </div> 
-        <div class="option">
-          <input autocomplete="off" type="text" placeholder="Peso(opcional)" id="Text"/> 
-         <select id="Arrow">
-            <option value="...">Flechas..</option>
-            <option value="to">To</option>
-            <option value="middle">Middle</option>
-            <option value="from">From</option>
-            <option value="to;from">To From</option>
-          </select>   
+
+        <div class="options-container">
+          <div class="option">
+            <div class="option">
+              <input autocomplete="off" type="text" placeholder="Desde donde" id="From"/>
+              <input autocomplete="off" type="text" placeholder="Hasta donde" id="To"/>
+            </div>
+            <div class="option"><button class="btn" onclick="addEdge()"id="addEdge">Conectar</button></div>
+            <div class="option"><button class="btn" onclick="disconnect()"id="disconnect">Desconectar</button></div>
+          </div> 
         </div>
-        <div class="option">
-          <button class="btn" onclick="Clear()">Limpiar campos</button>
+
+        <div class="options-container">
+          <div class="option">
+            <input autocomplete="off" type="text" placeholder="Peso(opcional)" id="Text"/> 
+           <select id="Arrow">
+              <option value="...">Flechas..</option>
+              <option value="to">To</option>
+              <option value="middle">Middle</option>
+              <option value="from">From</option>
+              <option value="to;from">To From</option>
+            </select>   
+          </div>
+          <div class="option">
+            <button class="btn" onclick="Clear()">Limpiar campos</button>
+          </div>
+          <div class="">
+          </div>    
         </div>
-        <div class="">
-        </div>
+
       </div>
+      
     </div>
 
     <!--Js-->
     <script src="app.js" type="text/javascript"></script>
-    <script type="text/javascript" src="Library/Jquery-3.5.0/jquery-3.5.0.js"></script>
-    <script type="text/javascript" src="Library/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="Library/Sweetalert/dist/sweetalert2.all.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
   </body>
 </html>
