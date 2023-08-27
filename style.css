@@ -20,6 +20,7 @@ body {
 }
 
 .Title-container {
+  padding: 5px;
   text-align: center;
   background-color: #0c484b;
 
