@@ -4,7 +4,7 @@
 
 body {
   font-family: "New Tegomin", serif;
-  background-color: rgb(29, 33, 41);
+  background-color: #1ab17c;
   margin: 0;
 }
 
@@ -17,7 +17,7 @@ body {
 
 .Title-container {
   text-align: center;
-  background-color: rgb(244, 88, 71);
+  background-color: #1784a9;
 
   /* -webkit-box-shadow: 3px 3px 5px -3px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 3px 3px 5px -3px rgba(0, 0, 0, 0.75);
@@ -31,11 +31,11 @@ body {
 
 .screen-graphs {
   border-radius: 10px;
-  border: 1px solid white;
+  background-color: #1784a9;
 
-  /* -webkit-box-shadow: 3px 3px 5px -3px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 3px 3px 5px -3px rgba(0, 0, 0, 0.75);
-  box-shadow: 3px 3px 5px -3px rgba(0, 0, 0, 0.75); */
+  -webkit-box-shadow: 1px 1px 3px 0.3px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 1px 1px 3px 0.3px rgba(0, 0, 0, 0.75);
+  box-shadow: 1px 1px 3px 0.3px rgba(0, 0, 0, 0.75);  
 }
 
 #Red {
@@ -47,14 +47,14 @@ body {
 .options-container {
   text-align: center;
   border-radius: 10px;
-  border: 1px solid white;
   gap: 20px;
   padding: 10px;
+  
+  background-color: #1784a9;
 
-
-  /* -webkit-box-shadow: 3px 3px 5px -3px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 3px 3px 5px -3px rgba(0, 0, 0, 0.75);
-  box-shadow: 3px 3px 5px -3px rgba(0, 0, 0, 0.75); */
+  -webkit-box-shadow: 1px 1px 3px 0.3px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 1px 1px 3px 0.3px rgba(0, 0, 0, 0.75);
+  box-shadow: 1px 1px 3px 0.3px rgba(0, 0, 0, 0.75); 
 }
 
 /*.option {
