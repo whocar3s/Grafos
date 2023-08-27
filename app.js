@@ -19,11 +19,11 @@ var options = {
     shape: "hexagon",
     size: 20,
     color: {
-      border: "rgb(244, 88, 71)",
-      background: "rgb(29, 33, 41)",
-      highlight: "rgb(244, 88, 71)",
+      border: "#e1a66f",
+      background: "#0c484b",
+      highlight: "#e1a66f",
     },
-    font: { size: 32, color: "rgb(244, 88, 71)" },
+    font: { size: 30, color: "#e1a66f" },
     borderWidth: 2,
     shadow: true,
   },
@@ -65,14 +65,13 @@ function addEdge() {
   console.log(From.value + To.value);
   if (From.value == "" || To.value == "") return showError("Por favor rellene los campos necesarios.");
 
-  console.log(arrow.value);
 
   edges.add({
     id: From.value + To.value,
     from: From.value,
     to: To.value,
     label: text.value,
-    arrows: arrow.value
+    arrows: "..."
   });
 }
 
