@@ -13,7 +13,7 @@ body {
 }
 
 .grid-container {
-  grid-template-rows: 70% auto;
+  grid-template-rows: calc(100dvh - 288px) auto;
   display: grid;
   gap: 5px;
   padding: 20px;
