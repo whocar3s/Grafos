@@ -17,7 +17,7 @@ var data = {
 var options = {
   physics: false,
   nodes: {
-    shape: "hexagon",
+    shape: "dot",
     size: 20,
     color: {
       border: "#e1a66f",
