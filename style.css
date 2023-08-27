@@ -1,12 +1,12 @@
 * {
   box-sizing: border-box;
   font-weight: bold;
+  font-family: 'Bricolage Grotesque', sans-serif;
 }
 
 body {
   display: flex;
   flex-direction: column;
-  font-family: "New Tegomin", serif;
   background-color: #37666b;
   margin: 0;
   height: 100%;
@@ -36,7 +36,6 @@ body {
 .screen-graphs {
   border-radius: 10px;
   background-color: #0c484b;
-
   -webkit-box-shadow: 1px 1px 3px 0.3px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 1px 1px 3px 0.3px rgba(0, 0, 0, 0.75);
   box-shadow: 1px 1px 3px 0.3px rgba(0, 0, 0, 0.75);  
