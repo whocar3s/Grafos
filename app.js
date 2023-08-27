@@ -2,7 +2,8 @@ var Nodo = document.getElementById("Node");
 var From = document.getElementById("From");
 var To = document.getElementById("To");
 var text = document.getElementById("Text");
-var arrow = document.getElementById('Arrow');
+var toggleCheckbox = document.getElementById('toggle');
+var toggleContainer = document.querySelector('.toggleContainer');
 var Content = document.getElementById("Red");
 
 var nodes = new vis.DataSet();
@@ -64,14 +65,14 @@ function addNode() {
 function addEdge() {
   console.log(From.value + To.value);
   if (From.value == "" || To.value == "") return showError("Por favor rellene los campos necesarios.");
-
+  
 
   edges.add({
     id: From.value + To.value,
     from: From.value,
     to: To.value,
     label: text.value,
-    arrows: "..."
+    arrows: toggleCheckbox.checked ? '...' : 'to' 
   });
 }
 
