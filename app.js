@@ -141,6 +141,31 @@ function loadGraph() {
     lector.readAsText(archivo);
   });
 
-  // Simula un clic en el elemento de entrada de archivo para abrir el diálogo de carga
   inputArchivo.click();
 }
+
+
+
+graph.on("doubleClick", async event => {
+  var nodeId = event.nodes[0]; 
+  
+  if (nodeId !== undefined) {
+    const { value: nuevoNombre } = await Swal.fire({
+      title: 'Editar Nodo',
+      input: 'text',
+      inputLabel: 'Ingresa el nuevo nombre del nodo',
+      inputValue: nodes.get(nodeId).label,
+      showCancelButton: true,
+      inputValidator: (value) => {
+        if (!value) {
+          return 'Por favor escribe un nombre valido!'
+        }
+      }
+    })
+    
+    if (nuevoNombre !== null && nuevoNombre != '' && nuevoNombre != undefined) {
+      console.log(nuevoNombre)
+      nodes.update({ id: nodeId, label: nuevoNombre });
+    }
+  }
+});
