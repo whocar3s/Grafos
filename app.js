@@ -6,6 +6,9 @@ var toggleCheckbox = document.getElementById('toggle');
 var toggleContainer = document.querySelector('.toggleContainer');
 var Content = document.getElementById("Red");
 
+const btnDownload = document.getElementById("btnDownload");
+const btnLoad = document.getElementById("btnLoad");
+
 var nodes = new vis.DataSet();
 var edges = new vis.DataSet();
 
@@ -84,4 +87,60 @@ function Delete() {
 function disconnect() {
   if (From.value == "" && To.value == "") return showError("Debe rellenar desde donde se desconecta.")
   edges.remove({ id: From.value + To.value });
+}
+
+
+function downloadGraph() {
+  var dataToSave = {
+    nodes: nodes.get({ returnType: "Object" }), // Obtener nodos como objeto
+    edges: edges.get({ returnType: "Object" }), // Obtener bordes como objeto
+  };
+  const grafoJSON = JSON.stringify(dataToSave);
+  
+  // Crea un enlace de descarga invisible
+  const enlaceDescarga = document.createElement('a');
+  enlaceDescarga.href = 'data:text/json;charset=utf-8,' + encodeURIComponent(grafoJSON);
+  enlaceDescarga.download = 'grafo.json';
+  
+  // Simula un clic en el enlace para abrir la ventana de descarga
+  enlaceDescarga.style.display = 'none';
+  document.body.appendChild(enlaceDescarga);
+  enlaceDescarga.click();
+  
+  // Limpia el enlace después de que se complete la descarga
+  document.body.removeChild(enlaceDescarga);
+}
+
+function loadGraph() {
+  const inputArchivo = document.createElement('input');
+  inputArchivo.type = 'file';
+
+  inputArchivo.addEventListener('change', (event) => {
+    const archivo = event.target.files[0];
+    if (!archivo) return;
+
+    const lector = new FileReader();
+    lector.onload = (eventoCarga) => {
+      const grafoJSON = eventoCarga.target.result;
+      const grafoData = JSON.parse(grafoJSON);
+
+      var nodesArray = Object.values(grafoData.nodes);
+      nodes.clear();
+      nodesArray.forEach(function (node) {
+        nodes.add(node);
+      });
+      
+      var edgesArray = Object.values(grafoData.edges);
+      edges.clear();
+      edgesArray.forEach(function (edge) {
+        edges.add(edge);
+      });
+
+
+    };
+    lector.readAsText(archivo);
+  });
+
+  // Simula un clic en el elemento de entrada de archivo para abrir el diálogo de carga
+  inputArchivo.click();
 }
