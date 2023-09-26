@@ -8,6 +8,7 @@ var Content = document.getElementById("Red");
 
 const btnDownload = document.getElementById("btnDownload");
 const btnLoad = document.getElementById("btnLoad");
+const btnMatrix = document.getElementById('btnMatrices');
 
 var nodes = new vis.DataSet();
 var edges = new vis.DataSet();
@@ -169,3 +170,52 @@ graph.on("doubleClick", async event => {
     }
   }
 });
+
+
+function generarMatriz() {
+  var data = {
+    nodes: nodes.get({ returnType: "Object" }), // Obtener nodos como objeto
+    edges: edges.get({ returnType: "Object" }), // Obtener bordes como objeto
+  };
+  var nodesGraph = Object.values(data.nodes);
+  var edgesGraph = Object.values(data.edges);
+  console.log('Matriz de Adyacencia:');
+  console.log(matrizAdyacencia(nodesGraph, edgesGraph));
+  console.log('Matriz de Incidencia:');
+  console.log(matrizIncidencia(nodesGraph, edgesGraph));
+}
+
+
+const matrizAdyacencia = (nodesArray, edgesArray) => {
+  let matriz = []
+  nodesArray.forEach(node => {
+    let fila = []
+    nodesArray.forEach(nodeTo => {
+      let edge = edgesArray.find(edge => edge.from == node.id && edge.to == nodeTo.id);
+      if(edge != null) {
+        fila.push(parseInt(edge.label));
+      } else fila.push(0);
+    });
+    matriz.push(fila)
+  });
+  return matriz
+};
+
+
+const matrizIncidencia = (nodesArray, edgesArray) => {
+  let matriz = []
+  nodesArray.forEach(node => {
+    let fila = []
+    edgesArray.forEach(edge => {
+      if(edge.from == node.id) {
+        fila.push(1)
+      } else if(edge.to == node.id) {
+        fila.push(-1)
+      } else {
+        fila.push(0)
+      }
+    });
+    matriz.push(fila)
+  });
+  return matriz
+};
