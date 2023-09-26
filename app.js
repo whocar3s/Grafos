@@ -149,7 +149,8 @@ function loadGraph() {
 
 graph.on("doubleClick", async event => {
   var nodeId = event.nodes[0]; 
-  
+  var edgeId = event.edges[0];
+
   if (nodeId !== undefined) {
     const { value: nuevoNombre } = await Swal.fire({
       title: 'Editar Nodo',
@@ -168,6 +169,21 @@ graph.on("doubleClick", async event => {
       console.log(nuevoNombre)
       nodes.update({ id: nodeId, label: nuevoNombre });
     }
+  } else if(edgeId !== undefined) {
+    const { value: nuevoPeso } = await Swal.fire({
+      title: 'Editar Peso',
+      input: 'range',
+      icon: 'info',
+      inputLabel: 'Ingresa el nuevo peso de la arista',
+      inputValue: edges.get(edgeId).label,
+      inputAttributes: {
+        min: 0,
+        max: 100,
+        step: 1
+      },
+    });
+    edges.update({ id: edgeId, label: ''+nuevoPeso });
+    
   }
 });
 
@@ -192,7 +208,7 @@ const matrizAdyacencia = (nodesArray, edgesArray) => {
     let fila = []
     nodesArray.forEach(nodeTo => {
       let edge = edgesArray.find(edge => edge.from == node.id && edge.to == nodeTo.id);
-      if(edge != null) {
+      if(edge) {
         fila.push(parseInt(edge.label));
       } else fila.push(0);
     });
