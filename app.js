@@ -182,7 +182,7 @@ graph.on("doubleClick", async event => {
         step: 1
       },
     });
-    edges.update({ id: edgeId, label: ''+nuevoPeso });
+    if(nuevoPeso !== undefined) edges.update({ id: edgeId, label: ''+nuevoPeso });
     
   }
 });
