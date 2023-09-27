@@ -199,6 +199,11 @@ function generarMatriz() {
   console.log(matrizAdyacencia(nodesGraph, edgesGraph));
   console.log('Matriz de Incidencia:');
   console.log(matrizIncidencia(nodesGraph, edgesGraph));
+  const startNode = nodesGraph[0].id;
+  const { distances, path } = rutaminima(nodesGraph, edgesGraph, startNode);
+
+  console.log("Distancias desde el nodo de inicio:", distances);
+  console.log("Camino más corto desde el nodo de inicio:", path);
 }
 
 
@@ -248,4 +253,78 @@ const matrizIncidencia = (nodesArray, edgesArray) => {
     matriz.push(fila)
   });
   return matriz
+
+  
 };
+
+function rutaminima(nodesArray, edgesArray, startNode)
+  {
+    const graph = {};
+
+    // Inicializar el grafo con nodos vacíos
+    nodesArray.forEach(node => {
+      graph[node.id] = {};
+    });
+
+    // Llenar el grafo con las aristas y sus pesos
+    edgesArray.forEach(edge => {
+      graph[edge.from][edge.to] = parseInt(edge.label);
+      graph[edge.to][edge.from] = parseInt(edge.label); // Para grafos no dirigidos
+    });
+
+    const distances = {};
+    const visited = {};
+
+    // Inicializar las distancias
+    nodesArray.forEach(node => {
+      distances[node.id] = Infinity;
+    });
+    distances[startNode] = 0;
+
+    while (true) {
+      let minNode = null;
+
+      // Encontrar el nodo no visitado con la distancia mínima
+      for (let node in distances) {
+        if (!visited[node] && (minNode === null || distances[node] < distances[minNode])) {
+          minNode = node;
+        }
+      }
+
+      if (minNode === null) {
+        break; // Todos los nodos han sido visitados
+      }
+
+      visited[minNode] = true;
+
+      // Actualizar las distancias de los nodos vecinos
+      for (let neighbor in graph[minNode]) {
+        const distance = distances[minNode] + graph[minNode][neighbor];
+        if (distance < distances[neighbor]) {
+          distances[neighbor] = distance;
+        }
+      }
+    }
+
+    // Reconstruir el objeto path basado en las distancias
+    const path = {};
+    nodesArray.forEach(node => {
+      const nodeId = node.id;
+      path[nodeId] = [];
+
+      let currentNode = nodeId;
+      while (currentNode !== startNode) {
+        path[nodeId].unshift(currentNode);
+        for (let neighbor in graph[currentNode]) {
+          if (distances[neighbor] + graph[currentNode][neighbor] === distances[currentNode]) {
+            currentNode = neighbor;
+            break;
+          }
+        }
+      }
+      path[nodeId].unshift(startNode);
+    });
+
+    return { distances, path };
+    
+  }
