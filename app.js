@@ -207,11 +207,11 @@ const matrizAdyacencia = (nodesArray, edgesArray) => {
   nodesArray.forEach(node => {
     let fila = []
     nodesArray.forEach(nodeTo => {
-      let edge
-      if (edge.arrows === "to"){
+      let edge 
+      if (edgesArray.find(edge => edge.arrows == "to")){
         edge = edgesArray.find(edge => edge.from == node.id && edge.to == nodeTo.id);
       }else{
-        edge = edgesArray.find((edge => edge.from == node.id && edge.to == nodeTo.id) || edge.from == nodeTo.id && edge.to == node.id )
+        edge = edgesArray.find(edge =>(edge.from === node.id && edge.to === nodeTo.id) || (edge.from === nodeTo.id && edge.to === node.id))
       }
       
       if(edge) {
@@ -229,12 +229,20 @@ const matrizIncidencia = (nodesArray, edgesArray) => {
   nodesArray.forEach(node => {
     let fila = []
     edgesArray.forEach(edge => {
-      if(edge.from == node.id) {
-        fila.push(1)
-      } else if(edge.to == node.id) {
-        fila.push(-1)
-      } else {
-        fila.push(0)
+      if (edgesArray.find(edge => edge.arrows === "to")){
+        if(edge.from == node.id) {
+          fila.push(1)
+        } else if(edge.to == node.id) {
+          fila.push(-1)
+        } else {
+          fila.push(0)
+        }
+      }else{
+        if (edge.from == node.id || edge.to == node.id){
+          fila.push(1)
+        }else{
+          fila.push(0)
+        }
       }
     });
     matriz.push(fila)
