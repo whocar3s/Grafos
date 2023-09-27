@@ -207,7 +207,13 @@ const matrizAdyacencia = (nodesArray, edgesArray) => {
   nodesArray.forEach(node => {
     let fila = []
     nodesArray.forEach(nodeTo => {
-      let edge = edgesArray.find(edge => edge.from == node.id && edge.to == nodeTo.id);
+      let edge
+      if (edge.arrows === "to"){
+        edge = edgesArray.find(edge => edge.from == node.id && edge.to == nodeTo.id);
+      }else{
+        edge = edgesArray.find((edge => edge.from == node.id && edge.to == nodeTo.id) || edge.from == nodeTo.id && edge.to == node.id )
+      }
+      
       if(edge) {
         fila.push(parseInt(edge.label));
       } else fila.push(0);
