@@ -14,6 +14,7 @@ const adyacenciaContent = document.getElementById("adyacencia-content");
 const incidenciaContent = document.getElementById("incidencia-content");
 const distMinimaContent = document.getElementById("dist-minima-content");
 const routeMinimacaContent = document.getElementById("ruta-minima-content");
+const routeCriticContent = document.getElementById("ruta-critica-content");
  
 var infoVisibleStatus = false;
 
@@ -212,13 +213,14 @@ function generarMatriz() {
   console.log("Distancias desde el nodo de inicio:", formatData(distances));
   console.log("Camino más corto desde el nodo de inicio:", formatDataSec(path));
 
-  const rutaMaxima = encontrarRutaMaxima(nodesGraph, edgesGraph, startNode);
+  const rutaMaxima = formatDataThird(encontrarRutaMaxima(nodesGraph, edgesGraph, startNode));
   console.log("Ruta máxima:", rutaMaxima);
 
   adyacenciaContent.textContent = formatMatrix(matrizAdyacencia(nodesGraph, edgesGraph));
   incidenciaContent.textContent = formatMatrix(matrizIncidencia(nodesGraph, edgesGraph));
   distMinimaContent.textContent = formatData(distances, nodesGraph[0].label);
   routeMinimacaContent.textContent = formatDataSec(path);
+  routeCriticContent.textContent = formatDataThird(encontrarRutaMaxima(nodesGraph, edgesGraph, startNode));
  
   infoContainer.style.display = infoVisibleStatus ? "none" : "block";
   infoVisibleStatus = !infoVisibleStatus;
@@ -251,6 +253,15 @@ function formatData(data, labelStart) {
   for (const key in data) {
     formattedString += `${labelStart} -> ${key} = ${data[key]}\n`;
   }
+  return formattedString;
+}
+
+function formatDataThird(data) {
+  let formattedString = '';
+  for (let i = 0; i < data.length - 1; i++) {
+    formattedString += `${data[i]} -> `;
+  }
+  formattedString += data[data.length-1];
   return formattedString;
 }
 
