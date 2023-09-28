@@ -212,6 +212,9 @@ function generarMatriz() {
   console.log("Distancias desde el nodo de inicio:", formatData(distances));
   console.log("Camino más corto desde el nodo de inicio:", formatDataSec(path));
 
+  const rutaMaxima = encontrarRutaMaxima(nodesGraph, edgesGraph, startNode);
+  console.log("Ruta máxima:", rutaMaxima);
+
   adyacenciaContent.textContent = formatMatrix(matrizAdyacencia(nodesGraph, edgesGraph));
   incidenciaContent.textContent = formatMatrix(matrizIncidencia(nodesGraph, edgesGraph));
   distMinimaContent.textContent = formatData(distances, nodesGraph[0].label);
@@ -380,4 +383,46 @@ function rutaminima(nodesArray, edgesArray, startNode)
 
   return { distances, path };
   
+}
+
+function encontrarRutaMaxima(nodesArray, edgesArray, startNode) {
+  const graph = {};
+
+  // Inicializar el grafo con nodos vacíos
+  nodesArray.forEach(node => {
+    graph[node.id] = {};
+  });
+
+  // Llenar el grafo con las aristas y sus pesos
+  edgesArray.forEach(edge => {
+    graph[edge.from][edge.to] = parseInt(edge.label);
+  });
+
+  const visited = new Set();
+  const path = [];
+
+  function dfs(node) {
+    visited.add(node);
+    path.push(node);
+
+    let maxWeight = -Infinity;
+    let nextNode = null;
+
+    for (const neighbor in graph[node]) {
+      if (!visited.has(neighbor)) {
+        if (graph[node][neighbor] > maxWeight) {
+          maxWeight = graph[node][neighbor];
+          nextNode = neighbor;
+        }
+      }
+    }
+
+    if (nextNode !== null) {
+      dfs(nextNode);
+    }
+  }
+
+  dfs(startNode);
+
+  return path;
 }
