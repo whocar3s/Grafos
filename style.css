@@ -42,6 +42,31 @@ body {
   box-shadow: 1px 1px 3px 0.3px rgba(0, 0, 0, 0.75);  
 }
 
+.info-content-container {
+  margin-bottom: 10px;
+  display: none;
+  max-height: calc(100dvh - 288px);
+  gap: 5px;
+  padding: 20px;
+  align-items: center;
+}
+
+.mat-container {
+  margin-bottom: 10px;
+  display: inline-block;
+  width: 49%;
+}
+
+#info-matriz {
+  margin-bottom: 10px;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
 #Red {
   flex: 1;
   overflow: hidden;

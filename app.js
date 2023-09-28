@@ -9,6 +9,13 @@ var Content = document.getElementById("Red");
 const btnDownload = document.getElementById("btnDownload");
 const btnLoad = document.getElementById("btnLoad");
 const btnMatrix = document.getElementById('btnMatrices');
+const infoContainer = document.querySelector(".info-content-container");
+const adyacenciaContent = document.getElementById("adyacencia-content");
+const incidenciaContent = document.getElementById("incidencia-content");
+const distMinimaContent = document.getElementById("dist-minima-content");
+const routeMinimacaContent = document.getElementById("ruta-minima-content");
+ 
+var infoVisibleStatus = false;
 
 var nodes = new vis.DataSet();
 var edges = new vis.DataSet();
@@ -196,14 +203,60 @@ function generarMatriz() {
   var nodesGraph = Object.values(data.nodes);
   var edgesGraph = Object.values(data.edges);
   console.log('Matriz de Adyacencia:');
-  console.log(matrizAdyacencia(nodesGraph, edgesGraph));
+  console.log(formatMatrix(matrizAdyacencia(nodesGraph, edgesGraph)));
   console.log('Matriz de Incidencia:');
-  console.log(matrizIncidencia(nodesGraph, edgesGraph));
+  console.log(formatMatrix(matrizIncidencia(nodesGraph, edgesGraph)));
   const startNode = nodesGraph[0].id;
   const { distances, path } = rutaminima(nodesGraph, edgesGraph, startNode);
 
-  console.log("Distancias desde el nodo de inicio:", distances);
-  console.log("Camino más corto desde el nodo de inicio:", path);
+  console.log("Distancias desde el nodo de inicio:", formatData(distances));
+  console.log("Camino más corto desde el nodo de inicio:", formatDataSec(path));
+
+  adyacenciaContent.textContent = formatMatrix(matrizAdyacencia(nodesGraph, edgesGraph));
+  incidenciaContent.textContent = formatMatrix(matrizIncidencia(nodesGraph, edgesGraph));
+  distMinimaContent.textContent = formatData(distances, nodesGraph[0].label);
+  routeMinimacaContent.textContent = formatDataSec(path);
+ 
+  infoContainer.style.display = infoVisibleStatus ? "none" : "block";
+  infoVisibleStatus = !infoVisibleStatus;
+}
+
+
+
+function formatMatrix(matrix) {
+  const numRows = matrix.length;
+  const numCols = matrix[0].length;
+
+  let formattedMatrix = "   ";
+  for (let col = 0; col < numCols; col++) {
+    formattedMatrix += (col + 1).toString().padStart(3, " ") + " ";
+  }
+  formattedMatrix += "\n";
+
+  for (let row = 0; row < numRows; row++) {
+    formattedMatrix += (row + 1).toString().padStart(3, " ") + " ";
+    for (let col = 0; col < numCols; col++) {
+      formattedMatrix += matrix[row][col].toString().padStart(3, " ") + " ";
+    }
+    formattedMatrix += "\n";
+  }
+  return formattedMatrix;
+}
+
+function formatData(data, labelStart) {
+  let formattedString = '';
+  for (const key in data) {
+    formattedString += `${labelStart} -> ${key} = ${data[key]}\n`;
+  }
+  return formattedString;
+}
+
+function formatDataSec(data) {
+  let formattedString = '';
+  for (const key in data) {
+    formattedString += `${data[key].join(' -> ')}\n`;
+  }
+  return formattedString;
 }
 
 
@@ -258,73 +311,73 @@ const matrizIncidencia = (nodesArray, edgesArray) => {
 };
 
 function rutaminima(nodesArray, edgesArray, startNode)
-  {
-    const graph = {};
+{
+  const graph = {};
 
-    // Inicializar el grafo con nodos vacíos
-    nodesArray.forEach(node => {
-      graph[node.id] = {};
-    });
+  // Inicializar el grafo con nodos vacíos
+  nodesArray.forEach(node => {
+    graph[node.id] = {};
+  });
 
-    // Llenar el grafo con las aristas y sus pesos
-    edgesArray.forEach(edge => {
-      graph[edge.from][edge.to] = parseInt(edge.label);
-      graph[edge.to][edge.from] = parseInt(edge.label); // Para grafos no dirigidos
-    });
+  // Llenar el grafo con las aristas y sus pesos
+  edgesArray.forEach(edge => {
+    graph[edge.from][edge.to] = parseInt(edge.label);
+    graph[edge.to][edge.from] = parseInt(edge.label); // Para grafos no dirigidos
+  });
 
-    const distances = {};
-    const visited = {};
+  const distances = {};
+  const visited = {};
 
-    // Inicializar las distancias
-    nodesArray.forEach(node => {
-      distances[node.id] = Infinity;
-    });
-    distances[startNode] = 0;
+  // Inicializar las distancias
+  nodesArray.forEach(node => {
+    distances[node.id] = Infinity;
+  });
+  distances[startNode] = 0;
 
-    while (true) {
-      let minNode = null;
+  while (true) {
+    let minNode = null;
 
-      // Encontrar el nodo no visitado con la distancia mínima
-      for (let node in distances) {
-        if (!visited[node] && (minNode === null || distances[node] < distances[minNode])) {
-          minNode = node;
-        }
-      }
-
-      if (minNode === null) {
-        break; // Todos los nodos han sido visitados
-      }
-
-      visited[minNode] = true;
-
-      // Actualizar las distancias de los nodos vecinos
-      for (let neighbor in graph[minNode]) {
-        const distance = distances[minNode] + graph[minNode][neighbor];
-        if (distance < distances[neighbor]) {
-          distances[neighbor] = distance;
-        }
+    // Encontrar el nodo no visitado con la distancia mínima
+    for (let node in distances) {
+      if (!visited[node] && (minNode === null || distances[node] < distances[minNode])) {
+        minNode = node;
       }
     }
 
-    // Reconstruir el objeto path basado en las distancias
-    const path = {};
-    nodesArray.forEach(node => {
-      const nodeId = node.id;
-      path[nodeId] = [];
+    if (minNode === null) {
+      break; // Todos los nodos han sido visitados
+    }
 
-      let currentNode = nodeId;
-      while (currentNode !== startNode) {
-        path[nodeId].unshift(currentNode);
-        for (let neighbor in graph[currentNode]) {
-          if (distances[neighbor] + graph[currentNode][neighbor] === distances[currentNode]) {
-            currentNode = neighbor;
-            break;
-          }
+    visited[minNode] = true;
+
+    // Actualizar las distancias de los nodos vecinos
+    for (let neighbor in graph[minNode]) {
+      const distance = distances[minNode] + graph[minNode][neighbor];
+      if (distance < distances[neighbor]) {
+        distances[neighbor] = distance;
+      }
+    }
+  }
+
+  // Reconstruir el objeto path basado en las distancias
+  const path = {};
+  nodesArray.forEach(node => {
+    const nodeId = node.id;
+    path[nodeId] = [];
+
+    let currentNode = nodeId;
+    while (currentNode !== startNode) {
+      path[nodeId].unshift(currentNode);
+      for (let neighbor in graph[currentNode]) {
+        if (distances[neighbor] + graph[currentNode][neighbor] === distances[currentNode]) {
+          currentNode = neighbor;
+          break;
         }
       }
-      path[nodeId].unshift(startNode);
-    });
+    }
+    path[nodeId].unshift(startNode);
+  });
 
-    return { distances, path };
-    
-  }
+  return { distances, path };
+  
+}

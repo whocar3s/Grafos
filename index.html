@@ -11,68 +11,95 @@
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-    <div class="Title-container">
-      <span class="title">Graph Maker</span>
-    </div>
-    <div class="grid-container">
-      <div class="screen-graphs">
-        <div id="Red"></div>
+    <div class="main-content-container">
+      <div class="Title-container">
+        <span class="title">Graph Maker</span>
       </div>
-
-      
-      <div class="main-options-container">
-        <div class="options-container">
-        
-        
-          <div class="option">
-            <div class="option"><input autocomplete="off" type="text" placeholder="Nombre nodo" id="Node"/></div>
-            <div class="option"><button class="btn option" onclick="addNode()">Agregar nodo</button></div>
-            <div class="option"><button class="btn option" onclick="Delete()">Eliminar nodo</button> </div>
-          </div>
-          
-          
-          
+      <div class="grid-container">
+        <div class="screen-graphs">
+          <div id="Red"></div>
         </div>
-
-        <div class="options-container">
-          <div class="option">
+  
+        
+        <div class="main-options-container">
+          <div class="options-container">
+          
+          
             <div class="option">
-              <input autocomplete="off" type="text" placeholder="Desde donde" id="From"/>
-              <input autocomplete="off" type="text" placeholder="Hasta donde" id="To"/>
+              <div class="option"><input autocomplete="off" type="text" placeholder="Nombre nodo" id="Node"/></div>
+              <div class="option"><button class="btn option" onclick="addNode()">Agregar nodo</button></div>
+              <div class="option"><button class="btn option" onclick="Delete()">Eliminar nodo</button> </div>
             </div>
-            <div class="option"><button class="btn" id="btn-sec" onclick="addEdge()"id="addEdge">Conectar</button></div>
-            <div class="option"><button class="btn" id="btn-sec" onclick="disconnect()"id="disconnect">Desconectar</button></div>
-          </div> 
-        </div>
-
-        <div class="options-container">
-          <div class="option">
-            <input autocomplete="off" type="text" placeholder="Peso (opcional)" id="Text"/> 
-              
+            
+            
+            
           </div>
-          <div class="option">
-            <input type="checkbox" id="toggle" class="toggleCheckbox" />
-              <label for="toggle" class='toggleContainer'>
-                <div class="to">Dirigido</div>
-                <div class="...">No dirigido</div>
-              </label> 
+  
+          <div class="options-container">
+            <div class="option">
+              <div class="option">
+                <input autocomplete="off" type="text" placeholder="Desde donde" id="From"/>
+                <input autocomplete="off" type="text" placeholder="Hasta donde" id="To"/>
+              </div>
+              <div class="option"><button class="btn" id="btn-sec" onclick="addEdge()"id="addEdge">Conectar</button></div>
+              <div class="option"><button class="btn" id="btn-sec" onclick="disconnect()"id="disconnect">Desconectar</button></div>
+            </div> 
           </div>
-          <div class="option">
-            <button class="btn" onclick="Clear()">Limpiar campos</button>
+  
+          <div class="options-container">
+            <div class="option">
+              <input autocomplete="off" type="text" placeholder="Peso (opcional)" id="Text"/> 
+                
+            </div>
+            <div class="option">
+              <input type="checkbox" id="toggle" class="toggleCheckbox" />
+                <label for="toggle" class='toggleContainer'>
+                  <div class="to">Dirigido</div>
+                  <div class="...">No dirigido</div>
+                </label> 
+            </div>
+            <div class="option">
+              <button class="btn" onclick="Clear()">Limpiar campos</button>
+            </div>
+            <div class="">
+            </div>    
           </div>
-          <div class="">
-          </div>    
-        </div>
- 
-        
-        <div class="options-container">
-            <div class="option"><button class="btn" id="btn-sec" onclick="downloadGraph()" id="btnDownload">Descargar Grafo</button></div> 
-            <div class="option"><button class="btn" id="btn-sec" onclick="loadGraph()" id="btnLoad">Cargar Grafo</button></div> 
-            <div class="option"><button class="btn" id="btn-sec" onclick="generarMatriz()" id="btnMatrices">Matrices</button></div> 
+   
+          
+          <div class="options-container">
+              <div class="option"><button class="btn" id="btn-sec" onclick="downloadGraph()" id="btnDownload">Descargar Grafo</button></div> 
+              <div class="option"><button class="btn" id="btn-sec" onclick="loadGraph()" id="btnLoad">Cargar Grafo</button></div> 
+              <div class="option"><button class="btn" id="btn-sec" onclick="generarMatriz()" id="btnMatrices">Matrices</button></div> 
+          </div>
+          
         </div>
         
       </div>
-      
+    </div>
+
+    <div class="info-content-container">
+      <div class="screen-graphs">
+        <div id="info-matriz">
+          <div class="mat-container mat-adyacencia">
+            <h2 class="title">Matriz de Adyacencia</h2>
+            <h3 class="title"><pre id="adyacencia-content"></pre></h3>
+          </div>
+          <div class="mat-container mat-incidencia">
+            <h2 class="title">Matriz de Incidencia</h2>
+            <h3 class="title"><pre id="incidencia-content"></pre></h3>
+            
+          </div>
+          <div class="mat-container ruta-minima">
+            <h2 class="title">Distancias Minimas</h2>
+            <h3 class="title"><pre id="dist-minima-content"></pre></h3>
+            
+          </div>
+          <div class="mat-container dist-minima">
+            <h2 class="title">Rutas Minimas</h2>
+            <h3 class="title"><pre id="ruta-minima-content"></pre></h3>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!--Js-->
