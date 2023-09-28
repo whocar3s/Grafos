@@ -51,10 +51,14 @@ body {
   align-items: center;
 }
 
-.mat-container {
-  margin-bottom: 10px;
+.mat-container { 
+  border-radius: 10px;
+  -webkit-box-shadow: 1px 1px 3px 0.3px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 1px 1px 3px 0.3px rgba(0, 0, 0, 0.75);
+  box-shadow: 1px 1px 3px 0.3px rgba(0, 0, 0, 0.75);
+  margin: 10px;
   display: inline-block;
-  width: 49%;
+  width: 45%;
 }
 
 #info-matriz {
